@@ -1,0 +1,216 @@
+import{y as env,z as openToC,A as closeToC,x as trackEvent}from"./chunk-a6dbe9bb.js";import{h as html,r as render}from"./lit-72fd3f8a.js";import{s as styleInject,B as BaseElement,a as BaseStateElement}from"./chunk-24b3b615.js";import"./algolia-61d8d050.js";import{B as BaseModalElement,g as generateIdSalt}from"./chunk-c6acdcec.js";var css_248z='web-question{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-flex:1;-ms-flex:1;flex:1;width:100%}.web-question__content{display:block;-webkit-box-flex:1;-ms-flex:1 1 0px;flex:1 1 0;height:0;padding:0 1.5rem 1.5rem;overflow-y:auto}@media (min-width:481px){.web-question__content{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;height:25rem}}.web-question__footer{border-top:1px solid #dadce0;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;padding:.625rem}@media (min-width:481px){.web-question__footer{padding:1rem}}.web-question__cta{overflow:visible}.web-question__cta:before{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font:normal normal normal 24px/1 Material Icons;-webkit-font-feature-settings:"liga";font-feature-settings:"liga";text-rendering:optimizeSpeed;text-transform:none;word-wrap:normal;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background:#018642;border-radius:50%;color:#fff;content:"check";display:-webkit-box;display:-ms-flexbox;display:flex;font-size:18px;height:24px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;left:calc(-24px - .5rem);opacity:0;pointer-events:none;position:absolute;top:calc(50% - 12px);-webkit-transform:scale(0);transform:scale(0);-webkit-transition:opacity .4s ease,-webkit-transform .2s ease;transition:opacity .4s ease,-webkit-transform .2s ease;transition:opacity .4s ease,transform .2s ease;transition:opacity .4s ease,transform .2s ease,-webkit-transform .2s ease;width:24px}[state=completed] .web-question__cta:before{opacity:1;-webkit-transform:scale(1);transform:scale(1)}';styleInject(css_248z);class AssessmentQuestion extends BaseElement{static get properties(){return{id:{type:String,reflect:!0},state:{type:String,reflect:!0},height:{type:String,attribute:"question-height"}}}constructor(){super(),this.state="unanswered",this.prerenderedChildren=null,this.ctaLabel="Check",this.responseComponentUpdated=this.responseComponentUpdated.bind(this),this.reset=this.reset.bind(this),this.height=null}render(){if(!this.prerenderedChildren){this.prerenderedChildren=[];for(const e of this.children)this.prerenderedChildren.push(e)}const e=this.height?"height: "+this.height+";":"";return html`
+      <div class="web-question__content" style="${e}">
+        ${this.prerenderedChildren}
+      </div>
+      <div class="web-question__footer">
+        <span></span>
+        <button
+          @click="${this.onSubmit}"
+          class="w-button w-button--primary web-assessment__button web-question__cta gc-analytics-event"
+          data-category="Self-assessments"
+          data-label="CTA, ${this.id}"
+          ?disabled="${"unanswered"===this.state}"
+        >
+          ${this.ctaLabel}
+        </button>
+      </div>
+    `}firstUpdated(){this.addEventListener("response-update",this.responseComponentUpdated),this.addEventListener("question-option-select",e=>{const t=e,{detail:s,target:o}=t;let i=-1;const n=Array.from(this.querySelectorAll("[data-role=response]"));for(let e=0;e<n.length;++e)if(n[e].contains(o)){i=e;break}-1!==i&&ga("send","event",{eventCategory:"Self-assessments",eventAction:"click",eventLabel:`${this.id}-response-${i}-option-${s}`})})}responseComponentUpdated(){const e=this.querySelectorAll("[data-role=response]"),t=Array.from(e).map(({state:e})=>e);t.includes("unanswered")?this.state="unanswered":t.includes("answeredIncorrectly")?this.state="answeredIncorrectly":this.state="answeredCorrectly"}onSubmit(){switch(this.state){case"answeredCorrectly":this.updateResponseComponents(),this.state="completed",this.ctaLabel=this.checkNextQuestion()?"Next":"Reset quiz";break;case"answeredIncorrectly":this.updateResponseComponents(),this.state="unanswered",this.ctaLabel="Recheck";const e=this.closest("web-tabs"),t=this.closest("web-assessment");e?e.focusTab(e.activeTab):t&&t.focus();break;case"completed":this.checkNextQuestion()?this.requestNextQuestionNav():this.requestAssessmentReset()}}updateResponseComponents(){const e=this.querySelectorAll("[data-role=response]");for(const t of e)t.submitResponse()}checkNextQuestion(){const e=this.closest(".web-tabs__panel");if(e)return e.nextElementSibling}requestNextQuestionNav(){const e=new Event("request-nav-to-next");this.dispatchEvent(e)}requestAssessmentReset(){const e=new Event("request-assessment-reset",{bubbles:!0});this.dispatchEvent(e)}reset(){const e=this.querySelectorAll("[data-role=response]"),t=this.querySelector(".web-question__content");for(const t of e)t.reset();this.ctaLabel="Check",t.scrollTop=0}}customElements.define("web-question",AssessmentQuestion);var css_248z$1='@media (min-width:865px){web-codelab .w-sizer.w-test{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-flow:column;flex-flow:column;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}web-codelab .w-sizer.w-test:after{content:"";background:#eb0f00;height:2px}}web-codelab .w-sizer .w-aside{margin:16px}@media (min-width:865px){web-codelab .w-sizer{position:-webkit-sticky;position:sticky;top:80px;height:calc(100vh - 96px)}}web-codelab .web-codelab__headline{padding-top:0}web-codelab .web-codelab__glitch{-webkit-box-flex:1;-ms-flex:1;flex:1;-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}@media (min-width:865px){web-codelab .web-codelab__glitch{-webkit-box-ordinal-group:initial;-ms-flex-order:initial;order:0}}';styleInject(css_248z$1);class Codelab extends BaseElement{static get properties(){return{glitch:{type:String},path:{type:String},_isDesktop:{type:Boolean}}}constructor(){super(),this.glitch="",this.path="index.html",this._mql=window.matchMedia("(min-width: 865px)"),this._toggleDesktop=()=>this._isDesktop=this._mql.matches}connectedCallback(){super.connectedCallback(),this._mql.addListener(this._toggleDesktop),this._toggleDesktop()}disconnectedCallback(){super.connectedCallback(),this._mql.removeListener(this._toggleDesktop)}createRenderRoot(){const e=document.createElement("div");return e.className="web-codelab__glitch",this.appendChild(e),e}glitchSrc(e){let t="https://glitch.com/embed/?attributionHidden=true";return this.path&&(t+=`&path=${encodeURI(this.path)}`),e&&(t+=`#!/embed/${encodeURI(this.glitch)}`),t}render(){if(!this.glitch)return html``;const e="test"===env;if(!this._isDesktop||e){return html`
+        <div class="w-sizer ${""}">
+          <div class="w-aside w-aside--warning">
+            <p>
+              <strong>Warning:</strong> ${"This Glitch isn't available on small screens"},
+              <a target="_blank" rel="noopener" href=${this.glitchSrc(!1)}>
+                open it in a new tab.</a
+              >
+            </p>
+          </div>
+        </div>
+      `}return html`
+      <div class="w-sizer">
+        <iframe
+          allow="geolocation; microphone; camera; midi; encrypted-media"
+          alt="Embedded glitch ${this.glitch}"
+          src="${this.glitchSrc(!0)}"
+          style="height: 100%; width: 100%; border: 0;"
+        >
+        </iframe>
+      </div>
+    `}}customElements.define("web-codelab",Codelab);var css_248z$2='.web-assessment__launcher{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;margin:3em 0}.web-assessment__button{height:3rem}web-assessment{display:none;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}web-assessment[animatable]{animation:modal-slideup .25s ease reverse}web-assessment[animatable][open]{-webkit-animation:modal-slideup .25s ease;animation:modal-slideup .25s ease}web-assessment.unresolved *{display:none!important}@media (min-width:481px){web-assessment{display:-webkit-box;display:-ms-flexbox;display:flex;margin:5em 0!important;padding:0!important}}@-webkit-keyframes modal-slideup{0%{-webkit-transform:translateY(40%);transform:translateY(40%);opacity:0}to{-webkit-transform:none;transform:none;opacity:1}}@keyframes modal-slideup{0%{-webkit-transform:translateY(40%);transform:translateY(40%);opacity:0}to{-webkit-transform:none;transform:none;opacity:1}}.web-assessment__open,.web-assessment__open:active,.web-assessment__open:focus,.web-assessment__open:hover{background:#018642}.web-assessment__close{position:absolute;right:.5rem;top:.75rem}.web-assessment__lockup{color:#018642}.web-assessment__lockup:before{content:"school"}.web-assessment--singleton .web-assessment__header{border-bottom:1px solid #dadce0}.web-assessment__content{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1;flex:1}web-assessment[animatable],web-assessment[open]{background:#fff;bottom:0;display:-webkit-box;display:-ms-flexbox;display:flex;left:0;margin:0;position:fixed;right:0;top:0;z-index:250}web-assessment[animatable] .web-assessment__header,web-assessment[open] .web-assessment__header{padding:1.5rem 3.5rem 1rem 1.5rem}web-assessment[animatable] .web-assessment__set-leader,web-assessment[open] .web-assessment__set-leader{display:none}@media (min-width:481px){.web-assessment__close,.web-assessment__launcher{display:none}.web-assessment__header{padding:1.5rem 1.5rem 1rem}}';styleInject(css_248z$2);class Assessment extends BaseModalElement{static get properties(){return{modal:{attribute:"aria-modal",reflect:!0},open:{type:Boolean,reflect:!0},animatable:{type:Boolean,reflect:!0},overflow:{type:Boolean,reflect:!0},parentModal:{attribute:"parent-modal",reflect:!0}}}constructor(){super(),this.modal=!1,this._placeholder=null,this.breakpoint_=matchMedia("(min-width: 481px)"),this.onAssessmentAnimationEnd=this.onAssessmentAnimationEnd.bind(this),this.onAssessmentResize=this.onAssessmentResize.bind(this),this.reset=this.reset.bind(this),this.onOpenClick=this.onOpenClick.bind(this),this.openAssessment=this.openAssessment.bind(this),this.closeAssessment=this.closeAssessment.bind(this)}render(){if(!this.prerenderedChildren){this.prerenderedChildren=[],this.setLeader=[];for(const e of this.children)e.classList.contains("web-assessment__set-leader")?this.setLeader.push(e):this.prerenderedChildren.push(e)}return html`
+      <div class="w-callout__header web-assessment__header">
+        <h2 class="w-callout__lockup web-assessment__lockup">
+          Check your understanding
+        </h2>
+        ${this.setLeader}
+        <button
+          @click="${this.onCloseClick}"
+          class="w-button--icon w-button--round web-assessment__close"
+          data-icon="close"
+        >
+          <span role="tooltip" class="w-tooltip">
+            Close
+          </span>
+        </button>
+      </div>
+      ${this.prerenderedChildren}
+    `}firstUpdated(){this.classList.remove("unresolved"),this.inert=!1,this.renderLauncher(),this.addEventListener("request-assessment-reset",this.reset);const e=[...document.querySelectorAll("web-assessment")].indexOf(this);this.id="web-assessment-"+e,Array.from(this.querySelectorAll("web-question")).forEach((e,t)=>{e.setAttribute("id",`${this.id}-question-${t}`)})}addUniqueID(e,t){const s=[...e].indexOf(t);"undefined"===t.id&&(t.id=s)}connectedCallback(){super.connectedCallback(),this.breakpoint_.addListener(this.onAssessmentResize)}disconnectedCallback(){super.disconnectedCallback(),this.breakpoint_.removeListener(this.onAssessmentResize)}renderLauncher(){const e=document.createElement("div"),t=(e=>html`
+      <div class="w-callout__header web-assessment__header">
+        <h2 class="w-callout__lockup web-assessment__lockup">
+          Check your understanding
+        </h2>
+        <div class="w-callout__blurb web-assessment__set-leader">
+          ${e}
+        </div>
+      </div>
+      <button
+        @click="${this.onOpenClick}"
+        class="w-button w-button--primary web-assessment__button web-assessment__open"
+      >
+        Open quiz
+      </button>
+    `)(this.setLeader[0]?this.setLeader[0].textContent:"");render(t,e),e.className="web-assessment__launcher",this.before(e)}onOpenClick(){this.open=!0}onCloseClick(){this.open=!1}updated(e){e.has("open")&&(this.modal=this.open,this.open?this.openAssessment():this.addEventListener("animationend",this.closeAssessment,{once:!0}))}openAssessment(){this._placeholder=this.previousElementSibling,this.setAttribute("role","dialog"),this.addEventListener("animationend",this.onAssessmentAnimationEnd,{once:!0}),document.body.append(this)}closeAssessment(){this.inert=!1,this._placeholder&&(this._placeholder.after(this),this._placeholder=null)}onAssessmentAnimationEnd(){const e=this.querySelector("web-tabs");e&&(e.onResize(),e.focusTab(e.activeTab))}onAssessmentResize(){this.open=!1,this.removeAttribute("role")}reset(){const e=this.querySelector("web-tabs"),t=this.querySelectorAll("web-question");for(const e of t)e.reset();e&&e.focusTab(0)}}customElements.define("web-assessment",Assessment);var css_248z$3="[data-role=option][data-submitted],[state=completed] [data-role=option]{background:#f1f3f4;border-radius:3px;cursor:auto}[data-role=option][data-correct][data-submitted]{background:rgba(1,134,66,.08);-webkit-box-shadow:inset 0 0 0 1px #018642;box-shadow:inset 0 0 0 1px #018642}.web-response__correctness-flag{color:#5f6368;display:none;padding:.1875rem 0 .5rem}[data-role=option][data-submitted] .web-response__correctness-flag,[state=completed] .web-response__correctness-flag{display:block}[data-role=option][data-submitted] .web-response__correctness-flag{color:#e51661}[data-role=option][data-submitted][data-correct] .web-response__correctness-flag{color:#018642}.web-response__option-rationale{color:#5f6368;display:none;font-size:.833em;padding:.5rem 0 0}[data-submitted] .web-response__option-rationale,[state=completed] .web-response__option-rationale{display:block}.web-response__option-rationale>:first-child{margin-top:0}.web-response__option-rationale>:last-child{margin-bottom:0}.web-response__option-rationale p{font-size:1em;line-height:1.5}.web-response__option-rationale ol>li,.web-response__option-rationale ul>li{font-size:1em}.web-response__option-rationale ol>li:before{margin-top:.25em}";styleInject(css_248z$3);class BaseResponseElement extends BaseElement{static get properties(){return{state:{type:String,reflect:!0},correctAnswer:{attribute:"correct-answer",type:String}}}constructor(){super(),this.state="unanswered",this.correctAnswer="",this.enforceCardinality=this.enforceCardinality.bind(this),this.submitResponse=this.submitResponse.bind(this),this.reset=this.reset.bind(this)}static getSelectionRange(e){let t=1,s=null;return"1"===e||(/^\d+$/.test(e)?(t=parseInt(e),s=t):/^\d+\+$/.test(e)?(t=parseInt(e),s=0):/^\d-\d+$/.test(e)&&([t,s]=e.split("-").map(parseInt))),{min:t,max:s}}firstUpdated(){this.identifyCorrectOptions()}updated(){this.reportUpdate()}reportUpdate(){const e=new CustomEvent("response-update",{bubbles:!0,detail:{responseState:this.state}});this.dispatchEvent(e)}identifyCorrectOptions(){if(!this.correctAnswer)return;const e=this.correctAnswer.split(",").map(Number),t=this.querySelectorAll("[data-role=option]");for(let s=0;s<t.length;s++)e.includes(s)&&t[s].setAttribute("data-correct","")}enforceCardinality(){const e=this.querySelectorAll("[data-role=option]");let t=0;for(const s of e)s.hasAttribute("data-selected")&&t++;const s=this.checkIfCorrect();if(t>=this.minSelections&&s?this.state="answeredCorrectly":t>=this.minSelections&&!s?this.state="answeredIncorrectly":this.state="unanswered",0!==this.maxSelections&&null!==this.maxSelections)for(const s of e){const e=s.hasAttribute("data-selected"),o=s.hasAttribute("data-submitted");t<this.maxSelections&&!e&&!o?this.enableOption(s):e||o||this.disableOption(s)}}checkIfCorrect(){const e=this.correctAnswer.split(",").map(Number),t=this.querySelectorAll("[data-role=option]"),s=[];return t.forEach((e,t)=>{e.hasAttribute("data-selected")&&s.push(t)}),e.every(e=>s.includes(e))}submitResponse(){const e=this.querySelectorAll("[data-role=option]");for(const t of e){const e=t.hasAttribute("data-selected"),s=t.hasAttribute("data-correct"),o=t.hasAttribute("data-submitted");"answeredIncorrectly"===this.state?e&&s?(t.setAttribute("data-submitted",""),this.disableOption(t)):e&&!s?(t.setAttribute("data-submitted",""),this.disableOption(t),this.deselectOption(t)):e||o||this.enableOption(t):"answeredCorrectly"===this.state&&(this.disableOption(t),e&&t.setAttribute("data-submitted",""))}"answeredIncorrectly"===this.state&&(this.state="unanswered")}reset(){const e=this.querySelectorAll("[data-role=option]");this.state="unanswered";for(const t of e)t.removeAttribute("data-submitted"),"function"==typeof this.deselectOption&&this.deselectOption(t),this.enableOption(t)}disableOption(e){const t=e.querySelectorAll("input, button");e.setAttribute("disabled","");for(const e of t)e.disabled=!0}enableOption(e){const t=e.querySelectorAll("input, button");e.removeAttribute("disabled");for(const e of t)e.disabled=!1}}var css_248z$4='web-response-mc .web-response-mc__selector,web-response-mc input[type=radio]~.web-response-mc__selector:after{border-color:#018642}@media (hover:hover){web-response-mc .web-response-mc__input:focus~.web-response-mc__selector:before,web-response-mc .web-response-mc__option:hover .web-response-mc__selector:before{background:#e8f5e9}}web-response-mc .web-response-mc__option:active .web-response-mc__selector:before{background:#c8e6c9}web-response-mc input[type=checkbox]:checked~.web-response-mc__selector{background:#018642}.web-response-mc__option[data-submitted],[state=completed] .web-response-mc__option{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start;justify-self:stretch;padding:1rem 1rem 1.5rem}[state=completed] .web-response-mc__input[disabled]~.web-response-mc__selector{background:#80868b;border-color:#80868b;-webkit-transition:none;transition:none}.web-select-group__option[data-submitted] .web-response-mc__input~.web-response-mc__selector{background:#e51661!important;border-color:#e51661!important;-webkit-transition:none;transition:none}.web-select-group__option[data-submitted][data-correct] .web-response-mc__input~.web-response-mc__selector{background:#018642!important;border-color:#018642!important;-webkit-transition:none;transition:none}.web-select-group__option[data-submitted] .web-response-mc__selector:before,[state=completed] .web-response-mc__selector:before{background:none!important}.web-select-group__option[data-submitted] .web-response-mc__input~.web-response-mc__selector:after,[state=completed] .web-response-mc__input~.web-response-mc__selector:after{border:0;content:"remove";height:auto;-webkit-transform:initial;transform:none;-webkit-transition:none;transition:none;width:auto}.web-select-group__option[data-submitted] .web-response-mc__input~.web-response-mc__selector:after{content:"clear"}.web-select-group__option[data-submitted][data-correct] .web-response-mc__input~.web-response-mc__selector:after{content:"check"}.web-select-group__option[data-submitted][disabled],[state=completed] .web-select-group__option[disabled]{pointer-events:auto}.web-select-group__option[data-submitted][disabled] .web-select-group__option-content,[state=completed] .web-select-group__option[disabled] .web-select-group__option-content{opacity:1}';styleInject(css_248z$4);class ResponseMultipleChoice extends BaseResponseElement{static get properties(){return{id:{type:String,reflect:!0},cardinality:{type:String},columns:{type:Boolean},state:{type:String,reflect:!0},correctAnswer:{attribute:"correct-answer",type:String}}}constructor(){super(),this.prerenderedChildren=null,this.options=null,this.optionContents=null,this.rationales=null,this.minSelections=null,this.maxSelections=null,this.selectType=null,this.cardinality=null,this.columns=!1,this.onOptionInput=this.onOptionInput.bind(this),this.deselectOption=this.deselectOption.bind(this),this.updateSelections=this.updateSelections.bind(this),this._formName=generateIdSalt("web-response-mc-form-")}render(){const e=this.correctAnswer.split(",").map(Number);this.selectType="1"===this.cardinality?"radio":"checkbox";const t=BaseResponseElement.getSelectionRange(this.cardinality);if(this.minSelections=t.min,this.maxSelections=t.max,!this.prerenderedChildren){this.prerenderedChildren=[],this.options=[],this.optionContents=[],this.rationales=[];for(const e of this.children){switch(e.getAttribute("data-role")){case"option":this.optionContents.push(e);break;case"rationale":this.rationales.push(e);break;default:this.prerenderedChildren.push(e)}}for(let t=0;t<this.optionContents.length;t++){const s=e.includes(t);this.options.push(this.optionTemplate(this.optionContents[t],this.rationales[t],s))}}return html`
+      ${this.prerenderedChildren}
+      <fieldset
+        class="web-select-group web-response-mc"
+        ?columns="${this.columns}"
+      >
+        <div class="web-select-group__options-wrapper">
+          ${this.options.map((e,t)=>html`
+                <label
+                  class="web-select-group__option web-response-mc__option"
+                  data-role="option"
+                >
+                  <input
+                    @input=${this.onOptionInput}
+                    @click=${this.onOptionClick}
+                    class="web-select-group__input web-response-mc__input gc-analytics-event"
+                    type="${this.selectType}"
+                    name="web-response-mc-form-${this._formName}"
+                    value="${t}"
+                  />
+                  <span
+                    class="web-select-group__selector web-response-mc__selector"
+                  ></span>
+                  <span class="web-select-group__option-content">
+                    ${e}
+                  </span>
+                </label>
+              `)}
+        </div>
+      </fieldset>
+    `}optionTemplate(e,t,s){const o=document.createElement("div");return o.className="web-response__correctness-flag",o.textContent=s?"Correct":"Incorrect",e.prepend(o),t.className="web-response__option-rationale",e.append(t),e.removeAttribute("data-role"),e}firstUpdated(){super.firstUpdated()}onOptionInput(e){this.updateSelections(e),this.enforceCardinality()}onOptionClick(e){const t=e.target,s=Number(t.value),o=new CustomEvent("question-option-select",{detail:s,bubbles:!0});this.dispatchEvent(o)}updateSelections(e){const t=this.querySelectorAll("[data-role=option]"),s=e.target.closest("[data-role=option]");if(e.target.checked){if("1"===this.cardinality)for(const e of t)e.removeAttribute("data-selected");s.setAttribute("data-selected","")}else s.removeAttribute("data-selected")}deselectOption(e){e.removeAttribute("data-selected"),e.querySelector("input").checked=!1}}customElements.define("web-response-mc",ResponseMultipleChoice);var css_248z$5="[state=completed] .web-response-tac__option-rationale{font:400 12px/1.5 Segoe UI,system-ui,-apple-system,sans-serif;background:rgba(1,134,66,.08);border-radius:3px;color:#202124;display:block;line-height:1.778!important;padding:1.125rem}@media (min-width:241px){[state=completed] .web-response-tac__option-rationale{font:400 14px/1.5 Segoe UI,system-ui,-apple-system,sans-serif}}@media (min-width:321px){[state=completed] .web-response-tac__option-rationale{font:400 16px/1.5 Segoe UI,system-ui,-apple-system,sans-serif}}";styleInject(css_248z$5);class ResponseThinkAndCheck extends BaseResponseElement{constructor(){super(),this.prerenderedChildren=null,this.option=null,this.reset=this.reset.bind(this)}render(){if(!this.prerenderedChildren){this.prerenderedChildren=[],this.option=[];for(const e of this.children)"rationale"===e.getAttribute("data-role")?(e.setAttribute("data-role","option"),e.className="web-response__option-rationale web-response-tac__option-rationale",this.option.push(e)):this.prerenderedChildren.push(e)}return html`${this.prerenderedChildren} ${this.option}`}connectedCallback(){super.connectedCallback(),this.state="answeredCorrectly"}reset(){super.reset(),this.state="answeredCorrectly"}}customElements.define("web-response-tac",ResponseThinkAndCheck);var css_248z$6='.web-select-group{border:0;margin:1.5rem 0;padding:0}.web-select-group__options-wrapper{display:grid;gap:1em;justify-items:start}[columns]>fieldset>.web-select-group__options-wrapper{grid-template-columns:repeat(auto-fit,minmax(30ch,1fr));justify-items:stretch}.web-select-group__option{font:400 13.5px/1.55556 Segoe UI,system-ui,-apple-system,sans-serif;margin-top:27px;margin-bottom:27px;-webkit-tap-highlight-color:transparent;-webkit-box-align:center;-ms-flex-align:center;align-items:center;cursor:pointer;display:-webkit-box;display:-ms-flexbox;display:flex;line-height:1.5!important;margin:0!important;padding:0 1rem;position:relative;z-index:1}@media (min-width:241px){.web-select-group__option{font:400 15px/1.86667 Segoe UI,system-ui,-apple-system,sans-serif;margin-top:31.5px;margin-bottom:31.5px}}@media (min-width:321px){.web-select-group__option{font:400 18px/1.77778 Segoe UI,system-ui,-apple-system,sans-serif;margin-top:36px;margin-bottom:36px}}.w-selectgroup__option--standalone{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.web-select-group__option[disabled]{pointer-events:none}.web-select-group__option-content{-webkit-transition:opacity .12s cubic-bezier(0,0,.2,1);transition:opacity .12s cubic-bezier(0,0,.2,1)}.web-select-group__option[disabled] .web-select-group__option-content{opacity:.5}.web-select-group__input{cursor:inherit;left:0;margin:0;opacity:0;padding:0;position:absolute;top:0}.web-select-group__selector{-webkit-box-align:center;-ms-flex-align:center;align-items:center;border:2px solid #3740ff;border-radius:2px;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;height:18px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:.4375rem 1.5625rem .4375rem .3125rem;position:relative;-webkit-transition:border .12s cubic-bezier(0,0,.2,1),background .12s cubic-bezier(0,0,.2,1);transition:border .12s cubic-bezier(0,0,.2,1),background .12s cubic-bezier(0,0,.2,1);width:18px}.w-selectgroup__option--standalone~.w-selectgroup__selector{margin:.4375rem}input[type=radio]~.web-select-group__selector{border-radius:50%;height:20px;margin:.375rem 1.5rem .375rem .25rem;width:20px}.w-selectgroup__option--standalone input[type=radio]~.w-selectgroup__selector{margin:.375rem}.web-select-group__selector:before{background:none;border:1px solid transparent;border-radius:50%;content:"";display:block;height:40px;left:50%;position:absolute;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);-webkit-transition:background .12s cubic-bezier(0,0,.2,1),border .12s cubic-bezier(0,0,.2,1);transition:background .12s cubic-bezier(0,0,.2,1),border .12s cubic-bezier(0,0,.2,1);width:40px;z-index:-1}.web-select-group__selector:after{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font:normal normal normal 24px/1 Material Icons;-webkit-font-feature-settings:"liga";font-feature-settings:"liga";text-rendering:optimizeSpeed;text-transform:none;word-wrap:normal;color:#fff;content:"";display:block;font-size:18px}input[type=radio]~.web-select-group__selector:after{border:5px solid #3740ff;border-radius:50%;height:0;-webkit-transform:scale(0);transform:scale(0);-webkit-transition:-webkit-transform .12s cubic-bezier(0,0,.2,1);transition:-webkit-transform .12s cubic-bezier(0,0,.2,1);transition:transform .12s cubic-bezier(0,0,.2,1);transition:transform .12s cubic-bezier(0,0,.2,1),-webkit-transform .12s cubic-bezier(0,0,.2,1);width:0}@media (hover:hover){.web-select-group__input:focus~.web-select-group__selector:before,.web-select-group__option:hover .web-select-group__selector:before{background:rgba(55,64,255,.11)}}.web-select-group__option:active .web-select-group__selector:before{background:rgba(55,64,255,.26)}.web-select-group__input:focus~.web-select-group__selector:before{border-color:#3740ff}.js-focus-visible .web-select-group__input:focus:not(.focus-visible)~.web-select-group__selector:before{border-color:transparent}input[type=radio]:checked~.web-select-group__selector:after{-webkit-transform:scale(1);transform:scale(1)}input[type=checkbox]:checked~.web-select-group__selector{background:#3740ff}input[type=checkbox]:checked~.web-select-group__selector:after{content:"check"}.web-select-group__input[disabled]~.web-select-group__selector{border-color:#bdc1c6}input[type=checkbox][disabled]:checked~.web-select-group__selector{background:#bdc1c6}.web-select-group__input[disabled]~.web-select-group__selector:after{border-color:#bdc1c6}';styleInject(css_248z$6);class SelectGroup extends BaseElement{static get properties(){return{type:{type:String},prefix:{type:String},columns:{type:Boolean}}}constructor(){super(),this.idSalt=generateIdSalt("web-select-group-"),this.selectors=null}render(){if(this.prefix||(this.prefix=""),!this.selectors){this.selectors=[];for(let e=0;e<this.children.length;e++)this.selectors.push(this.selectorTemplate(e,this.children[e],this.type,this.prefix))}return html`
+      <fieldset
+        class="web-select-group ${this.prefix}"
+        ?columns="${this.columns}"
+      >
+        <div class="web-select-group__options-wrapper">
+          ${this.selectors}
+        </div>
+      </fieldset>
+    `}selectorTemplate(e,t,s,o){let i="",n="",r="";return o&&(i=o+"__option",n=o+"__input",r=o+"__selector"),html`
+      <label
+        class="web-select-group__option ${i}"
+        data-category="Site-Wide Custom Events"
+        data-label="${s}, web-select-group-${this.idSalt}-${e}"
+      >
+        <input
+          @change="${this.onChange}"
+          class="web-select-group__input ${n}"
+          type="${s}"
+          name="web-select-group-${this.idSalt}"
+          value="${e}"
+        />
+        <span class="web-select-group__selector ${r}"></span>
+        <span class="web-select-group__option-content">
+          ${t}
+        </span>
+      </label>
+    `}onChange(){this.reportSelections()}reportSelections(){const e=this.querySelectorAll("input");let t=0;for(const s of e)s.checked&&t++;const s=new CustomEvent("change-selections",{detail:{numSelections:t}});this.dispatchEvent(s)}}customElements.define("web-select-group",SelectGroup);class TableOfContents extends BaseStateElement{static get properties(){return{opened:{type:Boolean,reflect:!0}}}constructor(){super(),this.scrollSpy=this.scrollSpy.bind(this),this.tocActiveClass="w-toc__active",this.tocBorderClass="w-toc__border",this.tocVisibleClass="w-toc__visible"}connectedCallback(){this.hasAttribute("opened")&&openToC(),super.connectedCallback(),this.tocHTML=this.innerHTML,this.articleContent=this.closest("main"),this.articleContent?(this.headings=this.articleContent.querySelectorAll("h1[id], h2[id], h3[id]"),this.observer=new IntersectionObserver(this.scrollSpy,{rootMargin:"0px 0px -80% 0px"}),this.headings.forEach(e=>this.observer.observe(e))):console.warn("Article container not found.")}render(){return html`
+      <div class="w-toc__label">
+        <span>In this article</span>
+        <button
+          class="w-button w-button--secondary w-button--icon"
+          data-icon="close"
+          aria-close="Close Table of Contents"
+          @click="${closeToC}"
+        ></button>
+      </div>
+      <div class="w-toc__content">
+        ${html([this.tocHTML])}
+      </div>
+    `}disconnectedCallback(){super.disconnectedCallback(),closeToC(),this.observer.disconnect()}onStateChanged({isTocOpened:e}){this.opened=e}scrollSpy(e){const t=new Map([...this.querySelectorAll("a")].map(e=>[e.getAttribute("href"),e]));for(const s of e){const e=`#${s.target.getAttribute("id")}`,o=t.get(e);o&&(s.intersectionRatio>0?(o.classList.add(this.tocVisibleClass),this.previouslyActiveHeading=s.target.getAttribute("id")):o.classList.remove(this.tocVisibleClass));const i=this.querySelector(`.${this.tocVisibleClass}`);if(t.forEach(e=>{e.classList.remove(this.tocActiveClass,this.tocVisibleClass),e.parentElement.classList.remove(this.tocBorderClass)}),i&&(i.classList.add(this.tocActiveClass),i.parentElement.classList.add(this.tocBorderClass)),!i&&this.previouslyActiveHeading){const e=this.querySelector(`a[href="#${this.previouslyActiveHeading}"]`);e.classList.add(this.tocActiveClass),e.parentElement.classList.add(this.tocBorderClass)}}}}customElements.define("web-table-of-contents",TableOfContents);class TableOfContentsButton extends BaseStateElement{static get properties(){return{opened:{type:Boolean,reflect:!0}}}constructor(){super()}render(){return html`
+      <button
+        class="w-toc__button--open w-button w-button--secondary w-button--icon"
+        data-icon="list_alt"
+        aria-label="Open Table of Contents"
+        @click="${openToC}"
+      ></button>
+    `}onStateChanged({isTocOpened:e}){this.opened=e}}customElements.define("web-table-of-contents-button",TableOfContentsButton);var css_248z$7='.web-copy-code__button{color:#202124;height:48px;margin:8px;opacity:0;position:absolute;right:0;width:48px}.web-copy-code__button:before{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font:normal normal normal 24px/1 Material Icons;-webkit-font-feature-settings:"liga";font-feature-settings:"liga";text-rendering:optimizeSpeed;text-transform:none;word-wrap:normal;content:"content_copy"}.web-copy-code__button:focus,.web-copy-code__button:hover{background-color:rgba(63,196,255,.2);opacity:1}.web-copy-code__button:active{background-color:rgba(63,196,255,.4);opacity:1}web-copy-code{display:block;position:relative}web-copy-code:active .web-copy-code__button,web-copy-code:focus .web-copy-code__button,web-copy-code:hover .web-copy-code__button{opacity:1}web-copy-code pre{min-height:64px}';styleInject(css_248z$7);class CopyCode extends BaseElement{constructor(){super(),this.onCopy=this.onCopy.bind(this)}connectedCallback(){super.connectedCallback(),this.copyButton||(this.copyButton=document.createElement("button"),this.copyButton.className="w-button--icon w-button--round web-copy-code__button",this.copyButton.setAttribute("aria-label","Copy code"),this.copyButton.addEventListener("click",this.onCopy),this.tooltip=document.createElement("span"),this.tooltip.className="w-tooltip w-tooltip--right",this.tooltip.setAttribute("role","tooltip"),this.tooltip.textContent="Copy code",this.copyButton.append(this.tooltip),this.prepend(this.copyButton))}onCopy(){window.getSelection().removeAllRanges();const e=document.createRange();e.selectNode(this.querySelector("code")),window.getSelection().addRange(e),document.execCommand("copy"),window.getSelection().removeAllRanges()}}customElements.define("web-copy-code",CopyCode);var css_248z$8="web-feedback{display:block}web-feedback .web-feedback__row{-webkit-box-align:center;-ms-flex-align:center;align-items:center;border-bottom:1px solid #dadce0;display:grid;font-family:Google Sans,sans-serif;font-size:.875em;font-weight:500;grid-template-columns:2fr 1fr 1fr;line-height:1.5}web-feedback .web-feedback__row:first-of-type,web-feedback .web-feedback__row:last-of-type{border-bottom:0}web-feedback .web-feedback__row>:not(:first-child){justify-self:center}web-feedback .web-feedback__row>label{padding:1rem}";styleInject(css_248z$8);const defaultQuestions=[{text:"Was this page helpful?",label:"helpful",name:"Helpfulness"},{text:"Did this page help you complete your goal(s)?",label:"effective",name:"Effectiveness"}],additionalQuestions=[{text:"Does this API meet your needs?",label:"api",name:"API"}];class Feedback extends BaseElement{static get properties(){return{additionalQuestions:{attribute:"additional-questions",converter:e=>e.toLocaleLowerCase().split(",")}}}constructor(){super(),this.robotName="is-it-just-me-or-was-this-form-filled-out-by-a-robot",this.submitted=!1,this.submit=this.submit.bind(this),this.additionalQuestions=[]}submit(e){e.preventDefault();const t=new FormData(e.target),s=0!==String(t.get(this.robotName)).length;t.delete(this.robotName);const o=Array.from(t.entries());0===o.length||this.submitted||(this.submitted=!0,this.requestUpdate(),s||o.forEach(e=>{trackEvent({category:"Feedback",action:"submit",label:e[0],value:Number(e[1])})}))}updated(){const e=this.querySelector(".w-feedback__confirmation");this.submitted&&e&&e.focus()}renderQuestions(e){return e.map(e=>html`<div class="web-feedback__row">
+        <div id="${e.label}-label">${e.text}</div>
+        <label>
+          <input
+            type="radio"
+            aria-labelledby="${e.label}-label yes-label"
+            name="${e.name}"
+            value="1"
+          />
+        </label>
+        <label>
+          <input
+            type="radio"
+            aria-labelledby="${e.label}-label no-label"
+            name="${e.name}"
+            value="0"
+          />
+        </label>
+      </div>`)}render(){const e=new Set(this.additionalQuestions),t=additionalQuestions.filter(t=>e.has(t.label));return html`
+      <details class="w-details" open>
+        <summary class="w-details__summary">
+          <h2 class="w-details__header">Give feedback</h2>
+        </summary>
+        <div
+          class="w-display--flex w-justify-content--center ${!this.submitted&&"hidden"}"
+        >
+          <p
+            class="w-feedback__confirmation w-text--center w-force-focus"
+            tabindex="-1"
+          >
+            Thank you for the feedback!
+          </p>
+        </div>
+        <form
+          class="w-feedback__form ${this.submitted&&"hidden"}"
+          @submit=${this.submit}
+        >
+          <small>All fields optional</small>
+          <div class="web-feedback__rows">
+            <div class="web-feedback__row">
+              <div></div>
+              <div id="yes-label">Yes</div>
+              <div id="no-label">No</div>
+            </div>
+            ${this.renderQuestions(t)}
+            ${this.renderQuestions(defaultQuestions)}
+          </div>
+
+          <div class="w-visually-hidden">
+            <label for="${this.robotName}"
+              >Congrats on finding this field, I'd recommend you not filling it
+              out though...</label
+            >
+            <input
+              type="text"
+              id="${this.robotName}"
+              name="${this.robotName}"
+              tabindex="-1"
+            />
+          </div>
+
+          <div class="w-text--center w-mt--sm">
+            <button class="w-button w-button--primary" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </details>
+    `}}customElements.define("web-feedback",Feedback);
+//# sourceMappingURL=default-0b88effc.js.map
